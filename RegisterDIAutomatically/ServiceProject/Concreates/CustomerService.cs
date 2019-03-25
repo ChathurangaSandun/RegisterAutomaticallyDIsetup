@@ -7,5 +7,9 @@ namespace ServiceProject.Concreates
 {
     public class CustomerService: Servicebase, ICustomerService
     {
+        public void Testmethod()
+        {
+            var a = 10;
+        }
     }
 }

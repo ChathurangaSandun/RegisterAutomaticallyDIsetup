@@ -6,5 +6,6 @@ namespace ServiceProject.Interfaces
 {
     public interface IServicebase
     {
+        
     }
 }

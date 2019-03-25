@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ServiceProject.Interfaces;
 
 namespace RegisterDIAutomatically.Controllers
 {
@@ -10,10 +11,19 @@ namespace RegisterDIAutomatically.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        ICustomerService customerService;
+
+        public ValuesController(ICustomerService customerService)
+        {
+            this.customerService = customerService;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            this.customerService.Testmethod();
+
             return new string[] { "value1", "value2" };
         }
 

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using NetCore.AutoRegisterDi;
+using ServiceProject.Concreates;
+using ServiceProject.Interfaces;
+using System;
+using System.Linq;
+using System.Reflection;
 
 namespace RegisterDIAutomatically
 {
@@ -26,6 +25,11 @@ namespace RegisterDIAutomatically
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddTransient<IServicebase, Servicebase>();
+            services.RegisterAssemblyPublicNonGenericClasses(Assembly.Load("ServiceProject"))
+    .Where(x => x.Name.EndsWith("Service"))
+    .AsPublicImplementedInterfaces();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
